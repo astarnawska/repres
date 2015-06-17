@@ -1,0 +1,22 @@
+\documentclass{article}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+Load the required libraries 
+<<loading libraries, fig=TRUE>>=
+library(ggplot2)
+data(mpg)
+str(mpg)
+@
+
+<<Overview_of_cars, fig=TRUE>>=
+ggplot(mpg, aes(model, fill = manufacturer)) +
+  theme_bw() +
+  facet_grid(. ~ year) +
+  geom_histogram() +
+  theme(axis.text.x = element_text(angle=90, vjust=0.5, size = 7)) +
+  ggtitle("Number of car models in each year")
+@
+
+
+\end{document}

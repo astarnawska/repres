@@ -1,0 +1,57 @@
+---
+title: "GoogleVis_Anna"
+output: slidy_presentation
+---
+
+## Loading packages
+Load the required libraries and data
+
+```{r libraries, echo=FALSE, message=FALSE}
+library(ggplot2)
+library(googleVis)
+library(datasets)
+suppressPackageStartupMessages(library(googleVis))
+op <- options(gvis.plot.tag="chart")
+data(mpg)
+```
+
+
+## Investigate 
+```{r lineChartSet}
+cars<- gvisLineChart(subset(mpg, mpg$manufacturer=="audi"), 
+                       xvar="model", 
+                       yvar=c("cty","displ"),
+                       options=list(
+                         series="[{targetAxisIndex: 0},
+                                 {targetAxisIndex:1}]",
+                         vAxes="[{title:'cty'}, {title:'displ'}]",
+                         width=900
+                       )
+          )
+
+```
+
+```{r lineChartPlot, results='asis'}
+print(cars, "chart")
+```
+
+## Do something more fun
+```{r bubble}
+Bubble <- gvisBubbleChart(mpg, idvar="manufacturer", 
+                          xvar="cty", 
+                          yvar="displ",
+                          colorvar="year", 
+                          sizevar="trans",
+                          options=list(
+                            hAxis="{title:'cty'}",
+                            vAxis="{title:'displ'}",
+                            width=900
+                          )
+          )
+
+```
+
+```{r plotBubble, results = 'asis'}
+print(Bubble, "chart")
+```
+
